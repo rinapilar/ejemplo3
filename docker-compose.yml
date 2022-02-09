@@ -1,0 +1,22 @@
+version: '2'
+services:
+  mysql:
+    container_name: mysql
+    restart: always
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: 'secret' # TODO: Change this
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  php:
+    container_name: php
+    restart: always
+    image: ualmtorres/phalcon-apache-ubuntu
+    ports:
+      - "80:80"
+    volumes:
+      - ./html:/var/www/html
